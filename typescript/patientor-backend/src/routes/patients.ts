@@ -4,7 +4,10 @@ import patientsData from '../data/patients.json'
 import { type Patient, type PublicPatient, type Entry } from '../types'
 import { newEntrySchema, newPatientSchema } from '../utils/validation'
 
-const patients: Patient[] = patientsData as Patient[]
+const patients: Patient[] = (patientsData as Patient[]).map((patient) => ({
+  ...patient,
+  entries: patient.entries ?? [],
+}))
 
 const toPublicPatient = ({ ssn: _ssn, ...rest }: Patient): PublicPatient => rest
 

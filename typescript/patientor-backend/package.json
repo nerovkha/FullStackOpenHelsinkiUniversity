@@ -11,6 +11,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.6",
     "express": "^5.3.0",
     "uuid": "^13.0.0",
     "zod": "^4.1.12"
