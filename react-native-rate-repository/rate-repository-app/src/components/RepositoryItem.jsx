@@ -62,7 +62,7 @@ const RepositoryItem = ({ repository }) => {
       <View style={styles.header}>
         <Image style={styles.avatar} source={{ uri: ownerAvatarUrl }} />
         <View style={styles.info}>
-          <Text fontWeight="bold" fontSize="subheading">
+          <Text fontWeight="bold" fontSize="subheading" platformSpecific>
             {fullName}
           </Text>
           <Text color="textSecondary">{description}</Text>
