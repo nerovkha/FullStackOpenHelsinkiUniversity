@@ -1,7 +1,8 @@
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 import anecdoteService from './services/anecdotes'
 
-const useAnecdoteStore = create((set, get) => ({
+const useAnecdoteStore = create(devtools((set, get) => ({
   anecdotes: [],
   filter: '',
   actions: {
@@ -33,7 +34,7 @@ const useAnecdoteStore = create((set, get) => ({
     },
     setFilter: (value) => set(() => ({ filter: value }))
   }
-}))
+})))
 
 export { useAnecdoteStore }
 
