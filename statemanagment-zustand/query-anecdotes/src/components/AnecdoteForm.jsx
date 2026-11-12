@@ -1,9 +1,24 @@
+import { useCreateAnecdote } from '../hooks'
+import { useNotify } from '../NotificationContext'
+
 const AnecdoteForm = () => {
+  const createAnecdote = useCreateAnecdote()
+  const notify = useNotify()
+
   const onCreate = (event) => {
     event.preventDefault()
-    const content = event.target.anecdote.value
-    event.target.reset()
-    console.log('new anecdote')
+    const form = event.target
+    const content = form.anecdote.value
+
+    createAnecdote.mutate(content, {
+      onSuccess: () => {
+        notify(`anecdote '${content}' created`)
+        form.reset()
+      },
+      onError: (error) => {
+        notify(error.response.data.error)
+      }
+    })
   }
 
   return (
