@@ -35,6 +35,8 @@ const useAnecdoteStore = create((set, get) => ({
   }
 }))
 
+export { useAnecdoteStore }
+
 export const useAnecdotes = () => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes)
   const filter = useAnecdoteStore((state) => state.filter)
