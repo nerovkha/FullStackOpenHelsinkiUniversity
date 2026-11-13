@@ -26,6 +26,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./todo-backend:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       - MONGO_URL=mongodb://the_username:the_password@mongo:27017/the_database
       - REDIS_URL=redis://redis:6379
@@ -42,6 +43,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./todo-frontend:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       - VITE_BACKEND_URL=http://localhost:3000
     ports:
