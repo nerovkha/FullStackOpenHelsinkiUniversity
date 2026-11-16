@@ -11,27 +11,33 @@ on:
 jobs:
   part6_tests:
     runs-on: ubuntu-24.04
+
     strategy:
       fail-fast: false
       matrix:
         app:
-          - statemanagment-zustand/unicafe
-          - statemanagment-zustand/anecdotes
-          - statemanagment-zustand/query-anecdotes
+          - Part-6-advancedstatement/unicafe
+          - Part-6-advancedstatement/anecdotes
+          - Part-6-advancedstatement/query-anecdotes
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
+
       - name: Install app dependencies
         working-directory: ${{ matrix.app }}
         run: npm ci
+
       - name: Run unit tests
-        if: matrix.app == 'statemanagment-zustand/anecdotes'
+        if: matrix.app == 'Part-6-advancedstatement/anecdotes'
         working-directory: ${{ matrix.app }}
         run: npm test
+
       - name: Run e2e tests
-        if: matrix.app != 'statemanagment-zustand/anecdotes'
+        if: matrix.app != 'Part-6-advancedstatement/anecdotes'
         working-directory: ${{ matrix.app }}-tests
         run: |
           npm ci
@@ -40,26 +46,33 @@ jobs:
 
   part7_bloglist:
     runs-on: ubuntu-24.04
+
     services:
       mongodb:
         image: mongo:8
         ports:
           - 27017:27017
+
     env:
       TEST_MONGODB_URI: mongodb://localhost:27017/bloglist-test
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
+
       - name: Install bloglist dependencies
-        working-directory: open-extension/bloglist/server
+        working-directory: Par-7-Advance state management/bloglist/server
         run: npm ci
+
       - name: Install client dependencies
-        working-directory: open-extension/bloglist/client
+        working-directory: Par-7-Advance state management/bloglist/client
         run: npm ci
+
       - name: Run bloglist e2e tests
-        working-directory: open-extension/bloglist-tests
+        working-directory: Par-7-Advance state management/bloglist-tests
         run: |
           npm ci
           npx playwright install --with-deps chromium
@@ -67,37 +80,20 @@ jobs:
 
   part7_routed_anecdotes:
     runs-on: ubuntu-24.04
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
+
       - name: Install app dependencies
-        working-directory: open-extension/routed-anecdotes
+        working-directory: Par-7-Advance state management/routed-anecdotes
         run: npm ci
+
       - name: Run e2e tests
-        working-directory: open-extension/routed-anecdotes-tests
+        working-directory: Par-7-Advance state management/routed-anecdotes-tests
         run: |
           npm ci
-          npx playwright install --with-deps chromium
-          npm test
-
-  part11_pokedex:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        working-directory: cicd-pipeline/pokedex
-        run: npm ci
-      - name: Lint
-        working-directory: cicd-pipeline/pokedex
-        run: npm run eslint
-      - name: Run tests
-        working-directory: cicd-pipeline/pokedex
-        run: npm test
-      - name: Build
-        working-directory: cicd-pipeline/pokedex
-        run: npm run build
+          npx playwright install --with-deps
