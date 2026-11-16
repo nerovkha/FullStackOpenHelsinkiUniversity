@@ -1,3 +1,4 @@
+/* global cy */
 describe('Pokedex', () => {
   it('front page can be opened', () => {
     cy.visit('/')
