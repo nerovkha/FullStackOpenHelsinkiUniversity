@@ -64,15 +64,15 @@ jobs:
           node-version: "22"
 
       - name: Install bloglist dependencies
-        working-directory: Par-7-Advance state management/bloglist/server
+        working-directory: Part-7-Advanced-state-management/bloglist/server
         run: npm ci
 
       - name: Install client dependencies
-        working-directory: Par-7-Advance state management/bloglist/client
+        working-directory: Part-7-Advanced-state-management/bloglist/client
         run: npm ci
 
       - name: Run bloglist e2e tests
-        working-directory: Par-7-Advance state management/bloglist-tests
+        working-directory: Part-7-Advanced-state-management/bloglist-tests
         run: |
           npm ci
           npx playwright install --with-deps chromium
@@ -89,11 +89,38 @@ jobs:
           node-version: "22"
 
       - name: Install app dependencies
-        working-directory: Par-7-Advance state management/routed-anecdotes
+        working-directory: Part-7-Advanced-state-management/routed-anecdotes
         run: npm ci
 
       - name: Run e2e tests
-        working-directory: Par-7-Advance state management/routed-anecdotes-tests
+        working-directory: Part-7-Advanced-state-management/routed-anecdotes-tests
         run: |
           npm ci
-          npx playwright install --with-deps
+          npx playwright install --with-deps chromium
+          npm test
+
+  part11_pokedex:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: Part-11-cicd-pipeline/pokedex
+        run: npm ci
+
+      - name: Lint
+        working-directory: Part-11-cicd-pipeline/pokedex
+        run: npm run eslint
+
+      - name: Run tests
+        working-directory: Part-11-cicd-pipeline/pokedex
+        run: npm test
+
+      - name: Build
+        working-directory: Part-11-cicd-pipeline/pokedex
+        run: npm run build
